@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import { supabase } from '@/lib/supabaseClient';
 
-const getProjects = async () => {
+// We're using an IIFE function to get the data as soon as possible.(in setup phase)
+(async () => {
   const { data, error } = await supabase.from('projects').select();
 
   if (error) console.log(error);
 
-  console.log(`Projects: ${data}`);
-};
+  console.log('Projects: ' + data);
+
+  return data;
+})();
 </script>
 
 <template>
