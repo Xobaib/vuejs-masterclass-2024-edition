@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { supabase } from '@/lib/supabaseClient';
 import { ref } from 'vue';
+import { supabase } from '@/lib/supabaseClient';
+import type { Tables } from '../../../database/types';
 
-let projects = ref<any[] | null>(null);
+let projects = ref<Tables<'projects'>[] | null>(null);
 
 // We're using an IIFE function to get the data as soon as possible.(in setup phase)
 (async () => {
-  const { data, error } = await supabase.from('project').select();
+  const { data, error } = await supabase.from('projects').select();
 
   if (error) console.log(error);
 
@@ -21,7 +22,9 @@ let projects = ref<any[] | null>(null);
     <h1>Projects Page</h1>
     <RouterLink :to="{ name: '/' }">Go to home</RouterLink>
     <ul>
-      <li v-for="project in projects" :key="project.id"></li>
+      <li v-for="project in projects" :key="project.id">
+        {{ project.name }}
+      </li>
     </ul>
   </div>
 </template>
