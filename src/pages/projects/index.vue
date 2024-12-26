@@ -2,11 +2,11 @@
 import { supabase } from '@/lib/supabaseClient';
 import { ref } from 'vue';
 
-let projects = ref();
+let projects = ref<any[] | null>(null);
 
 // We're using an IIFE function to get the data as soon as possible.(in setup phase)
 (async () => {
-  const { data, error } = await supabase.from('projects').select();
+  const { data, error } = await supabase.from('project').select();
 
   if (error) console.log(error);
 
@@ -20,7 +20,9 @@ let projects = ref();
   <div>
     <h1>Projects Page</h1>
     <RouterLink :to="{ name: '/' }">Go to home</RouterLink>
-    {{ projects }}
+    <ul>
+      <li v-for="project in projects" :key="project.id"></li>
+    </ul>
   </div>
 </template>
 
