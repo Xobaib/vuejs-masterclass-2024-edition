@@ -13,19 +13,11 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 <template>
   <nav class="h-16 border-b bg-muted/40 flex justify-between items-center px-6">
-    <form class="w-full max-w-96">
-      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24">
-        <g
-          fill="none"
-          stroke="#fff"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-        >
-          <circle cx="11" cy="11" r="8" />
-          <path d="m21 21l-4.3-4.3" />
-        </g>
-      </svg>
+    <form class="relative h-fit w-full max-w-96">
+      <iconify-icon
+        icon="lucide:search"
+        class="absolute top-[50%] translate-y-[-50%] left-2.5 text-muted-foreground"
+      ></iconify-icon>
       <Input type="text" placeholder="Search ..." class="w-full bg-background pl-8" />
     </form>
 
