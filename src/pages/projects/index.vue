@@ -4,6 +4,7 @@ import { supabase } from '@/lib/supabaseClient';
 import type { Tables } from '../../../database/types';
 import type { ColumnDef } from '@tanstack/vue-table';
 import DataTable from '@/components/ui/data-table/DataTable.vue';
+import { RouterLink } from 'vue-router';
 
 let projects = ref<Tables<'projects'>[] | null>(null);
 
@@ -15,7 +16,7 @@ let projects = ref<Tables<'projects'>[] | null>(null);
 
   projects.value = data;
 
-  console.log('Projects: ', projects.value);
+  // console.log('Projects: ', projects.value);
 })();
 
 const columns: ColumnDef<Tables<'projects'>>[] = [
@@ -23,7 +24,14 @@ const columns: ColumnDef<Tables<'projects'>>[] = [
     accessorKey: 'name',
     header: () => h('div', { class: 'text-left' }, 'Name'),
     cell: ({ row }) => {
-      return h('div', { class: 'text-left font-medium' }, row.getValue('name'));
+      return h(
+        RouterLink,
+        {
+          to: `/projects/${row.original.slug}`,
+          class: 'text-left font-medium hover:bg-muted block w-full',
+        },
+        () => row.getValue('name'),
+      );
     },
   },
   {
@@ -35,7 +43,7 @@ const columns: ColumnDef<Tables<'projects'>>[] = [
   },
   {
     accessorKey: 'collaborators',
-    header: () => h('div', { clsss: 'text-left' }, 'Collaborators'),
+    header: () => h('div', { class: 'text-left' }, 'Collaborators'),
     cell: ({ row }) => {
       return h(
         'div',
