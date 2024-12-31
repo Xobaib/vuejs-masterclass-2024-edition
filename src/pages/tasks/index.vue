@@ -4,6 +4,8 @@ import type { Tables } from '../../../database/types';
 import type { ColumnDef } from '@tanstack/vue-table';
 import { RouterLink } from 'vue-router';
 
+usePageStore().pageData.title = 'My Tasks';
+
 let tasks = ref<Tables<'tasks'>[] | null>(null);
 
 // We're using an IIFE function to get the data as soon as possible.(in setup phase)
