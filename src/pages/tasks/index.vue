@@ -7,13 +7,15 @@ import { RouterLink } from 'vue-router';
 let tasks = ref<Tables<'tasks'>[] | null>(null);
 
 // We're using an IIFE function to get the data as soon as possible.(in setup phase)
-(async () => {
+async function getTasks() {
   const { data, error } = await supabase.from('tasks').select();
 
   if (error) console.log(error);
 
   tasks.value = data;
-})();
+}
+
+await getTasks();
 
 const columns: ColumnDef<Tables<'tasks'>>[] = [
   {
