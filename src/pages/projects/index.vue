@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { supabase } from '@/lib/supabaseClient';
-import type { Tables } from '../../../database/types';
 import type { ColumnDef } from '@tanstack/vue-table';
 import { RouterLink } from 'vue-router';
+import { projectsQuery } from '@/utils/supaQueries';
+import { type Projects } from '@/utils/supaQueries';
 
 usePageStore().pageData.title = 'Projects';
 
-let projects = ref<Tables<'projects'>[] | null>(null);
+let projects = ref<Projects | null>(null);
 
 async function getProjects() {
-  const { data, error } = await supabase.from('projects').select();
+  const { data, error } = await projectsQuery;
 
   if (error) console.log(error);
 
@@ -18,7 +18,7 @@ async function getProjects() {
 
 await getProjects();
 
-const columns: ColumnDef<Tables<'projects'>>[] = [
+const columns: ColumnDef<Projects[0]>[] = [
   {
     accessorKey: 'name',
     header: () => h('div', { class: 'text-left' }, 'Name'),
