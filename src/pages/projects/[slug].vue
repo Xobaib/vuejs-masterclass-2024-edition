@@ -2,9 +2,18 @@
 import { projectQuery } from '@/utils/supaQueries';
 import type { Project } from '@/utils/supaQueries';
 
+const store = usePageStore();
+
 const route = useRoute('/projects/[slug]');
 
 const project = ref<Project | null>(null);
+
+watch(
+  () => project.value?.name,
+  (newVal, oldVal) => {
+    store.pageData.title = `Project: ${newVal || ''}`;
+  },
+);
 
 async function getProjects() {
   const { data, error } = await projectQuery(route.params.slug);
