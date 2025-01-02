@@ -1,3 +1,15 @@
+<script setup lang="ts">
+import { useErrorStore } from '@/stores/error';
+
+const errorStore = useErrorStore();
+
+const router = useRouter();
+
+router.afterEach((to, from) => {
+  errorStore.clearError();
+});
+</script>
+
 <template>
   <section class="error">
     <div>

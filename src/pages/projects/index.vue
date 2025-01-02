@@ -3,7 +3,8 @@ import { projectsQuery } from '@/utils/supaQueries';
 import { type Projects } from '@/utils/supaQueries';
 import { columns } from '@/utils/tableColumns/projectsColumns';
 
-usePageStore().pageData.title = 'Projects';
+const pageStore = usePageStore();
+pageStore.pageData.title = 'Projects';
 
 let projects = ref<Projects | null>(null);
 
