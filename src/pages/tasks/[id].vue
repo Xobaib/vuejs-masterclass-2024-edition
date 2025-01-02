@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router';
 import { taskWithProjectQuery } from '@/utils/supaQueries';
 import type { Task } from '@/utils/supaQueries';
 
