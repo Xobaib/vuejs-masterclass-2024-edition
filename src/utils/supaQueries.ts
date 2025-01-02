@@ -13,6 +13,13 @@ export type TasksWithProjects = QueryData<typeof tasksWithProjectsQuery>;
 //
 //
 //
+export const taskWithProjectQuery = (id: string) => {
+  return supabase.from('tasks').select('*, projects(id, name)').eq('id', id).single();
+};
+export type Task = QueryData<ReturnType<typeof taskWithProjectQuery>>;
+//
+//
+//
 export const projectsQuery = supabase.from('projects').select();
 export type Projects = QueryData<typeof projectsQuery>;
 //

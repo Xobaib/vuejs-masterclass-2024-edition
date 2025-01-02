@@ -15,7 +15,7 @@ watch(
   },
 );
 
-async function getProjects() {
+async function getProject() {
   const { data, error } = await projectQuery(route.params.slug);
 
   if (error) console.log(error);
@@ -23,7 +23,7 @@ async function getProjects() {
   project.value = data;
 }
 
-await getProjects();
+await getProject();
 </script>
 
 <template>
