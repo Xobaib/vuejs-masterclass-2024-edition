@@ -9,9 +9,12 @@ pageStore.pageData.title = 'Projects';
 let projects = ref<Projects | null>(null);
 
 async function getProjects() {
-  const { data, error } = await projectsQuery;
+  const { data, error, status } = await projectsQuery;
 
-  if (error) console.log(error);
+  if (error) {
+    useErrorStore().setError({ error, customCode: status });
+    console.log(error);
+  }
 
   projects.value = data;
 }
