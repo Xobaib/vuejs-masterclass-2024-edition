@@ -19,8 +19,6 @@ async function getTasks() {
 }
 
 await getTasks();
-
-useErrorStore().setError({ error: Error('I am an uncaught error') });
 </script>
 
 <template>
