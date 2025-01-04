@@ -4,7 +4,7 @@ import { useErrorStore } from '@/stores/error';
 
 const errorStore = useErrorStore();
 
-errorStore.setError();
+errorStore.setError({ error: 'Page not found!', customCode: 404 });
 </script>
 
 <template>
