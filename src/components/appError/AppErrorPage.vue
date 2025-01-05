@@ -26,6 +26,10 @@ if (error.value && 'code' in error.value) {
   statusCode.value = error.value.statusCode ?? 0;
 }
 
+const ErrorTemplate = import.meta.env.DEV
+  ? defineAsyncComponent(() => import('./AppErrorDevSection.vue'))
+  : defineAsyncComponent(() => import('./AppErrorProdSection.vue'));
+
 router.afterEach((to, from) => {
   errorStore.clearError();
 });
@@ -33,8 +37,7 @@ router.afterEach((to, from) => {
 
 <template>
   <section class="error">
-    <AppErrorDevSection :message :customCode :details :code :hint :statusCode />
-    <!-- <AppErrorProdSection
+    <ErrorTemplate
       :message
       :customCode
       :details
@@ -42,7 +45,7 @@ router.afterEach((to, from) => {
       :hint
       :statusCode
       :isCustomError="errorStore.isCustomError"
-    /> -->
+    />
   </section>
 </template>
 
