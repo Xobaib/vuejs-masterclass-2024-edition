@@ -22,7 +22,7 @@ export async function register(formData: RegisterForm) {
     if (error) return console.log('Profiles err: ', error);
   }
 
-  authStore.setAuth(data.session);
+  await authStore.setAuth(data.session);
 
   return true;
 }
@@ -35,7 +35,7 @@ export async function login(formData: LoginForm) {
 
   if (error) return console.log(error);
 
-  authStore.setAuth(data.session);
+  await authStore.setAuth(data.session);
 
   return true;
 }

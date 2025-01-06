@@ -31,3 +31,7 @@ export const useErrorStore = defineStore('error-store', () => {
 
   return { activeError, setError, clearError, isCustomError };
 });
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useErrorStore, import.meta.hot));
+}
