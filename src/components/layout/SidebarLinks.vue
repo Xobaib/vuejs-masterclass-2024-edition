@@ -8,27 +8,26 @@ interface LinkProp {
 const props = defineProps<{
   links: LinkProp[];
 }>();
-
-const filteredLinks = props.links.filter((link): link is LinkProp & { to: string } => !!link.to);
 </script>
 
 <template>
-  <!-- RouterLink accepts two props for active paths: 1-activeClass 2-exactActiveClass, and whatever we pass as the value for those props, it will be added as a class to the active link -->
-  <RouterLink
-    exactActiveClass="text-primary bg-muted"
-    v-for="link in filteredLinks"
-    :key="link.title"
-    :to="link.to"
-    class="nav-link"
-  >
-    <iconify-icon :icon="link.icon"></iconify-icon>
-    <span class="hidden lg:block text-nowrap">{{ link.title }}</span>
-  </RouterLink>
+  <template v-for="link in links" :key="link.title">
+    <!-- RouterLink accepts two props for active paths: 1-activeClass 2-exactActiveClass, and whatever we pass as the value for those props, it will be added as a class to the active link -->
+    <RouterLink
+      v-if="link.to"
+      exactActiveClass="text-primary bg-muted"
+      :to="link.to"
+      class="nav-link"
+    >
+      <iconify-icon :icon="link.icon"></iconify-icon>
+      <span class="hidden lg:block text-nowrap">{{ link.title }}</span>
+    </RouterLink>
 
-  <div class="nav-link cursor-pointer">
-    <!-- <iconify-icon :icon="link.icon"></iconify-icon>
-    <span class="hidden lg:block text-nowrap">{{ link.title }}</span> -->
-  </div>
+    <div v-else class="nav-link cursor-pointer">
+      <iconify-icon :icon="link.icon"></iconify-icon>
+      <span class="hidden lg:block text-nowrap">{{ link.title }}</span>
+    </div>
+  </template>
 </template>
 
 <style scoped>
