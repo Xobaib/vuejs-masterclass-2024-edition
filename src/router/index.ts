@@ -6,15 +6,19 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from) => {
+router.beforeEach(async (to, from) => {
   const authStore = useAuthStore();
 
-  if (to.name === '/login' || to.name === '/register') {
-    return true;
+  await authStore.getSession();
+
+  const isAuthPage = ['/login', '/register'].includes(to.path);
+
+  if (!authStore.user && !isAuthPage) {
+    return { name: '/login' };
   }
 
-  if (!authStore.user) {
-    return { name: '/login' };
+  if (authStore.user && isAuthPage) {
+    return { name: '/' };
   }
 
   return true;
