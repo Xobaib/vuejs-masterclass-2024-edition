@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { logout } from '@/utils/supaAuth';
-
 const links = [
   {
     title: 'Dashboard',
@@ -36,10 +34,14 @@ const accountLinks = [
   },
 ];
 
+const router = useRouter();
+
 async function executeAction(linkTitle: string) {
   if (linkTitle === 'Sign out') {
     const { logout } = await import('@/utils/supaAuth');
-    await logout();
+    const isLoggedOut = await logout();
+
+    if (isLoggedOut) router.push('/login');
   }
 }
 </script>

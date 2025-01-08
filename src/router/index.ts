@@ -6,9 +6,18 @@ const router = createRouter({
   routes,
 });
 
-// router.beforeEach(async () => {
-//   const authStore = useAuthStore();
-//   await authStore.getSession();
-// });
+router.beforeEach((to, from) => {
+  const authStore = useAuthStore();
+
+  if (to.name === '/login' || to.name === '/register') {
+    return true;
+  }
+
+  if (!authStore.user) {
+    return { name: '/login' };
+  }
+
+  return true;
+});
 
 export default router;
